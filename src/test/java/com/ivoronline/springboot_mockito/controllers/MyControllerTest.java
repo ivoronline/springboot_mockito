@@ -4,9 +4,14 @@ import com.ivoronline.springboot_mockito.entities.Person;
 import com.ivoronline.springboot_mockito.repositories.PersonRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class MyControllerTest {
+
+  @Autowired MyController myController;
 
   @Test
   void getPerson() {
@@ -18,8 +23,7 @@ class MyControllerTest {
     Mockito.when(personRepositoryMock.getPersonById(1)).thenReturn(new Person(1, "John", 20));
 
     //TEST CONTROLLER'S ENDPOINT
-    MyController myController = new MyController();        //@Autowired not working
-    String       result       = myController.getPerson(1);
+    String result = myController.getPerson(1);
 
     //TEST RESULT
     assertEquals("Hello John", result);
